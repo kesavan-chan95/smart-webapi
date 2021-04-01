@@ -98,6 +98,7 @@ namespace SmartOffice.API
         {
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IBusinessService, BusinessService>();
 
         }
 

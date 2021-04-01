@@ -259,7 +259,9 @@ namespace SmartOffice.DataLayer.MasterDBContext
 
                 entity.Property(e => e.Bid).HasColumnName("BId");
 
-                entity.Property(e => e.BaccountStartDate).HasColumnName("BAccountStartDate");
+                entity.Property(e => e.BaccountStartDate)
+                    .HasColumnName("BAccountStartDate")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Bemail)
                     .IsRequired()
