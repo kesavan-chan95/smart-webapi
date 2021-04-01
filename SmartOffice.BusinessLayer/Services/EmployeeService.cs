@@ -12,6 +12,7 @@ namespace SmartOffice.BusinessLayer.Services
         public bool EmployeeCreation(EmployeeModel employeeModel, string cudType);
         EmployeeModel GetEmployeeById(int empId);
         List<EmployeeModel> GetAllEmployee();
+      
 
     }
     public class EmployeeService : IEmployeeService
@@ -104,9 +105,8 @@ namespace SmartOffice.BusinessLayer.Services
                     unitOfWork.Commit();
                     return true;
                 }
-
-
-            }
+  }
+           
             catch (Exception ex) { return false; }
             // finally { tempUser = null; }//
         }
@@ -145,6 +145,8 @@ namespace SmartOffice.BusinessLayer.Services
             { employeeModel = null; }
         }
 
+       
+
         public List<EmployeeModel> GetAllEmployee()
         {
             List<EmployeeModel> listmodel = null;
@@ -166,6 +168,7 @@ namespace SmartOffice.BusinessLayer.Services
                         employeeModel.EmpDesignation = value.EmpDesignation;
                         employeeModel.EmpContactNo = value.EmpContactNo;
                         employeeModel.EmpAltContactNo = value.EmpAltContactNo;
+                        employeeModel.EmpEmail = value.EmpEmail;
                         employeeModel.EmpPermenantAddress = value.EmpPermenantAddress;
                         employeeModel.EmpTempAddress = value.EmpTempAddress;
                         employeeModel.EmpSalaryType = value.EmpSalaryType;

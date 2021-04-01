@@ -65,6 +65,8 @@ namespace SmartOffice.API.Controllers
                         uModel.cudType = "U";
 
                     }
+                   
+
                     return employeeService.EmployeeCreation(uModel, vModel.cudType);
                 }
                 else { return employeeService.EmployeeCreation(uModel,vModel.cudType); }
@@ -137,6 +139,7 @@ namespace SmartOffice.API.Controllers
                         employeeModel.EmpDesignation = value.EmpDesignation;
                         employeeModel.EmpContactNo = value.EmpContactNo;
                         employeeModel.EmpAltContactNo = value.EmpAltContactNo;
+                        employeeModel.EmpEmail = value.EmpEmail;
                         employeeModel.EmpPermenantAddress = value.EmpPermenantAddress;
                         employeeModel.EmpTempAddress = value.EmpTempAddress;
                         employeeModel.EmpSalaryType = value.EmpSalaryType;
@@ -162,6 +165,11 @@ namespace SmartOffice.API.Controllers
                 return null;
             }
         }
+
+      
+
+       
+
 
     }
 }  
