@@ -1,4 +1,5 @@
-﻿using SmartOffice.DataLayer.Repositories;
+﻿
+using SmartOffice.DataLayer.Repositories;
 using SmartOffice.DataLayer.MasterDBContext;
 using SmartOffice.Models.UserModel;
 using System;
@@ -11,8 +12,8 @@ namespace SmartOffice.BusinessLayer.Services
 
     public interface ILoginService
     {
-        bool UserAuthentication(string loginName, string loginPassword);
-        bool UserCreation(UserModel userModel,string type);
+        GetModel UserAuthentication(string loginName, string loginPassword);
+        bool UserCreation(UserModel userModel, string type);
 
         UserModel GetUserById(int userId);
 
@@ -30,15 +31,22 @@ namespace SmartOffice.BusinessLayer.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public bool UserAuthentication(string loginName, string loginPassword)
+        public GetModel UserAuthentication(string loginName, string loginPassword)
         {
-            var userList = masuserRepository.Get(exp => exp.UserLoginId == loginName && exp.UserPassword == loginPassword);
-            return userList != null ? true : false;
-
-
-
-        }
-        public bool UserCreation(UserModel userModel,string type)
+          GetModel getmodel = null;
+            try 
+            {
+                var userList = masuserRepository.Get(exp => exp.UserLoginId == loginName && exp.UserPassword == loginPassword);
+                getmodel = new GetModel();
+                getmodel.UserId = userList.UserId;
+                getmodel.UserName = userList.UserName;
+                getmodel.Emproll = "Admin";
+                return getmodel;
+            }
+            finally
+            { getmodel = null; }
+    }
+        public bool UserCreation(UserModel userModel, string type)
         {
             Masuser tempUser = null;
             try
@@ -88,7 +96,7 @@ namespace SmartOffice.BusinessLayer.Services
                     return true;
                 }
             }
-            finally{ tempUser = null; }
+            finally { tempUser = null; }
         }
 
         public UserModel GetUserById(int userId)
