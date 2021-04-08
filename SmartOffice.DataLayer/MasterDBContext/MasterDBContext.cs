@@ -234,7 +234,6 @@ namespace SmartOffice.DataLayer.MasterDBContext
                     .IsUnicode(false);
 
                 entity.Property(e => e.BrEmailId)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
