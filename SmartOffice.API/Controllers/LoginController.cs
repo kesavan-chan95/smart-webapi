@@ -21,10 +21,24 @@ namespace SmartOffice.API.Controllers
 
         [HttpPost]
         [ActionName("LoginValidate")]
-        public bool LoginValidate([FromBody] LoginViewModel vModel)
+        public GetViewModel LoginValidate([FromBody] LoginViewModel vModel)
         {
-            try { return loginService.UserAuthentication(vModel.LoginName, vModel.LoginPassword); }
-            catch (Exception ex) { return false; }
+            GetViewModel getViewModel = null;
+
+            try 
+            { 
+                var model= loginService.UserAuthentication(vModel.LoginName, vModel.LoginPassword); 
+                if (model != null)
+                {
+                    getViewModel = new GetViewModel();
+                    getViewModel.UserId = model.UserId;
+                    getViewModel.UserName = model.UserName;
+                    getViewModel.Emproll = model.Emproll;
+                    return getViewModel;
+                }
+                else { return getViewModel; }
+            }
+            catch (Exception ex) { return null; }
         }
 
         [HttpPost]
