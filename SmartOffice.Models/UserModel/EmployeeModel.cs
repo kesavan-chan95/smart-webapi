@@ -35,4 +35,11 @@ namespace SmartOffice.Models.UserModel
 
 
     }
+
+
+    public class KeyValueModel
+    {
+        public int keyId { get; set; }
+        public string keyName { get; set; }
+    }
 }

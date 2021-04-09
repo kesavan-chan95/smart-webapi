@@ -98,7 +98,6 @@ namespace SmartOffice.BusinessLayer.Services
             }
             finally { tempUser = null; }
         }
-
         public UserModel GetUserById(int userId)
         {
             UserModel userModel = null;
@@ -119,7 +118,6 @@ namespace SmartOffice.BusinessLayer.Services
             finally
             { userModel = null; }
         }
-
         public List<UserModel> GetAllUser()
         {
             List<UserModel> listModel = null;

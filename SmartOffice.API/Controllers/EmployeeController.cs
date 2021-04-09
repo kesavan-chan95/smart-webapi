@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartOffice.BusinessLayer.Services;
 using SmartOffice.Models.UserModel;
 using SmartOffice.ViewModel.EmployeeViewModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartOffice.API.Controllers
 {
@@ -166,9 +168,32 @@ namespace SmartOffice.API.Controllers
             }
         }
 
-      
+        [HttpGet]
+        [ActionName("GetDropdownData")]
+        public DropdowData GetDropdownData()
+        {
+            DropdowData drpData = null;
+            try
+            {
+                var deptModel = employeeService.GetDeparment().Select(exp => new KeyValueViewModel { keyId = exp.keyId, keyName = exp.keyName }).ToList();
+                var desigModel = employeeService.GetDesignation().Select(exp => new KeyValueViewModel { keyId = exp.keyId, keyName = exp.keyName }).ToList(); 
+                if (deptModel != null && desigModel!=null)
+                {
+                    drpData = new DropdowData();
+                    drpData.departmentList = deptModel;
+                    drpData.desingationList = desigModel;
+                }
+                return drpData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-       
+
+
+
 
 
     }

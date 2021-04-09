@@ -37,4 +37,6 @@ namespace SmartOffice.Models.UserModel
         public DateTime? ModifiedDate { get; set; }
         public int? ModifiedBy { get; set; }
     }
+
+    
 }

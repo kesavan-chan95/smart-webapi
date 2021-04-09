@@ -1,4 +1,6 @@
-﻿namespace SmartOffice.ViewModel.EmployeeViewModel
+﻿using System.Collections.Generic;
+
+namespace SmartOffice.ViewModel.EmployeeViewModel
 {
     public class EmployeeViewModel
     {
@@ -28,4 +30,19 @@
 
 
     }
+
+    public class KeyValueViewModel
+    {
+        public int keyId { get; set; }
+        public string keyName { get; set; }
+    }
+
+    public class DropdowData
+    {
+        public List<KeyValueViewModel> departmentList { get; set; }
+        public List<KeyValueViewModel> desingationList { get; set; }
+
+    }
 }
+
+

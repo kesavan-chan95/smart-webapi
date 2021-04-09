@@ -4,6 +4,7 @@ using SmartOffice.Infrastructure.Infrastructure;
 using SmartOffice.Models.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartOffice.BusinessLayer.Services
 {
@@ -12,19 +13,23 @@ namespace SmartOffice.BusinessLayer.Services
         public bool EmployeeCreation(EmployeeModel employeeModel, string cudType);
         EmployeeModel GetEmployeeById(int empId);
         List<EmployeeModel> GetAllEmployee();
-      
+
+        List<KeyValueModel> GetDeparment();
+
+        List<KeyValueModel> GetDesignation();
 
     }
     public class EmployeeService : IEmployeeService
     {
         private readonly ImasemployeeRepository masemployeeRepository;
+        private readonly IconfiglovRepository configlovRepository;
         private readonly IUnitOfWork<MasterDBContext> unitOfWork;
-        public EmployeeService(ImasemployeeRepository masemployeeRepository, IUnitOfWork<MasterDBContext> unitOfWork)
+        public EmployeeService(IconfiglovRepository configlovRepository, ImasemployeeRepository masemployeeRepository, IUnitOfWork<MasterDBContext> unitOfWork)
         {
             this.masemployeeRepository = masemployeeRepository;
+            this.configlovRepository = configlovRepository;
             this.unitOfWork = unitOfWork;
         }
-
         public bool EmployeeCreation(EmployeeModel employeeModel, string cudType)
         {
             Masemployee tempUser = null;
@@ -105,8 +110,8 @@ namespace SmartOffice.BusinessLayer.Services
                     unitOfWork.Commit();
                     return true;
                 }
-  }
-           
+            }
+
             catch (Exception ex) { return false; }
             // finally { tempUser = null; }//
         }
@@ -144,9 +149,6 @@ namespace SmartOffice.BusinessLayer.Services
             finally
             { employeeModel = null; }
         }
-
-       
-
         public List<EmployeeModel> GetAllEmployee()
         {
             List<EmployeeModel> listmodel = null;
@@ -194,6 +196,16 @@ namespace SmartOffice.BusinessLayer.Services
             finally
             { employeeModel = null; listmodel = null; }
 
+        }
+
+        public List<KeyValueModel> GetDeparment()
+        {
+            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept").Select(exp => new KeyValueModel { keyId = exp.ClId, keyName = exp.ClLovname }).ToList();
+        }
+
+        public List<KeyValueModel> GetDesignation()
+        {
+            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig").Select(exp => new KeyValueModel { keyId = exp.ClId, keyName = exp.ClLovname }).ToList();
         }
     }
 
