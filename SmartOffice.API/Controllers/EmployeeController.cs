@@ -57,8 +57,8 @@ namespace SmartOffice.API.Controllers
                         uModel.CreatedBy = 1;
                         uModel.CreatedDate = DateTime.UtcNow;
                         uModel.cudType = "I";
-                       
-                       
+
+
                     }
                     else
                     {
@@ -67,11 +67,11 @@ namespace SmartOffice.API.Controllers
                         uModel.cudType = "U";
 
                     }
-                   
+
 
                     return employeeService.EmployeeCreation(uModel, vModel.cudType);
                 }
-                else { return employeeService.EmployeeCreation(uModel,vModel.cudType); }
+                else { return employeeService.EmployeeCreation(uModel, vModel.cudType); }
             }
             catch (Exception ex) { return false; }
         }
@@ -176,8 +176,8 @@ namespace SmartOffice.API.Controllers
             try
             {
                 var deptModel = employeeService.GetDeparment().Select(exp => new KeyValueViewModel { keyId = exp.keyId, keyName = exp.keyName }).ToList();
-                var desigModel = employeeService.GetDesignation().Select(exp => new KeyValueViewModel { keyId = exp.keyId, keyName = exp.keyName }).ToList(); 
-                if (deptModel != null && desigModel!=null)
+                var desigModel = employeeService.GetDesignation().Select(exp => new KeyValueViewModel { keyId = exp.keyId, keyName = exp.keyName }).ToList();
+                if (deptModel != null && desigModel != null)
                 {
                     drpData = new DropdowData();
                     drpData.departmentList = deptModel;
@@ -190,12 +190,6 @@ namespace SmartOffice.API.Controllers
                 return null;
             }
         }
-
-
-
-
-
-
     }
-}  
+}
 

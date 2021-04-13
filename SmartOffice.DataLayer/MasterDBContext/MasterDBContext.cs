@@ -74,21 +74,21 @@ namespace SmartOffice.DataLayer.MasterDBContext
 
             modelBuilder.Entity<Configlov>(entity =>
             {
-                entity.HasKey(e => e.ClId)
+                entity.HasKey(e => e.Bid)
                     .HasName("PRIMARY");
 
                 entity.ToTable("configlov");
 
+                entity.Property(e => e.Bid).HasColumnName("BId");
+
                 entity.Property(e => e.ClIsactive).HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.ClLovcode)
-                    .IsRequired()
                     .HasColumnName("ClLOVCode")
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ClLovname)
-                    .IsRequired()
                     .HasColumnName("ClLOVName")
                     .HasMaxLength(150)
                     .IsUnicode(false);
@@ -226,6 +226,9 @@ namespace SmartOffice.DataLayer.MasterDBContext
 
                 entity.ToTable("masbranch");
 
+                entity.HasIndex(e => e.Bid)
+                    .HasName("Bid_idx");
+
                 entity.Property(e => e.Bid).HasColumnName("BId");
 
                 entity.Property(e => e.BrContactNo)
@@ -234,6 +237,7 @@ namespace SmartOffice.DataLayer.MasterDBContext
                     .IsUnicode(false);
 
                 entity.Property(e => e.BrEmailId)
+                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
@@ -247,6 +251,12 @@ namespace SmartOffice.DataLayer.MasterDBContext
                 entity.Property(e => e.CreatedBy).HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.HasOne(d => d.B)
+                    .WithMany(p => p.Masbranch)
+                    .HasForeignKey(d => d.Bid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Bid");
             });
 
             modelBuilder.Entity<Masbusiness>(entity =>

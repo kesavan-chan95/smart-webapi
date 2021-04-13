@@ -5,6 +5,11 @@ namespace SmartOffice.DataLayer.MasterDBContext
 {
     public partial class Masbusiness
     {
+        public Masbusiness()
+        {
+            Masbranch = new HashSet<Masbranch>();
+        }
+
         public int Bid { get; set; }
         public int UserId { get; set; }
         public string Bname { get; set; }
@@ -21,5 +26,7 @@ namespace SmartOffice.DataLayer.MasterDBContext
         public int CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? ModifiedBy { get; set; }
+
+        public virtual ICollection<Masbranch> Masbranch { get; set; }
     }
 }

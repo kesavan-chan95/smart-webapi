@@ -17,5 +17,7 @@ namespace SmartOffice.DataLayer.MasterDBContext
         public int CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? ModifiedBy { get; set; }
+
+        public virtual Masbusiness B { get; set; }
     }
 }

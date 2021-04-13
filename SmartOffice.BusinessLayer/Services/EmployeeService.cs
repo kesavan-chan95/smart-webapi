@@ -43,8 +43,8 @@ namespace SmartOffice.BusinessLayer.Services
                         tempUser.Bid = (int)employeeModel.Bid;
                         tempUser.EmpCode = employeeModel.EmpCode;
                         tempUser.EmpName = employeeModel.EmpName;
-                        tempUser.EmpDepartment = employeeModel.EmpDepartment;
-                        tempUser.EmpDesignation = employeeModel.EmpDesignation;
+                        tempUser.EmpDepartment = Convert.ToInt32(employeeModel.EmpDepartment);
+                        tempUser.EmpDesignation = Convert.ToInt32(employeeModel.EmpDesignation);
                         tempUser.EmpContactNo = employeeModel.EmpContactNo;
                         tempUser.EmpAltContactNo = employeeModel.EmpAltContactNo;
                         tempUser.EmpPermenantAddress = employeeModel.EmpPermenantAddress;
@@ -76,8 +76,8 @@ namespace SmartOffice.BusinessLayer.Services
                         userData.Bid = (int)employeeModel.Bid;
                         userData.EmpCode = employeeModel.EmpCode;
                         userData.EmpName = employeeModel.EmpName;
-                        userData.EmpDepartment = employeeModel.EmpDepartment;
-                        userData.EmpDesignation = employeeModel.EmpDesignation;
+                        userData.EmpDepartment = Convert.ToInt32(employeeModel.EmpDepartment);
+                        userData.EmpDesignation = Convert.ToInt32(employeeModel.EmpDesignation);
                         userData.EmpContactNo = employeeModel.EmpContactNo;
                         userData.EmpAltContactNo = employeeModel.EmpAltContactNo;
                         userData.EmpPermenantAddress = employeeModel.EmpPermenantAddress;
@@ -126,8 +126,8 @@ namespace SmartOffice.BusinessLayer.Services
                 employeeModel.Bid = model.Bid;
                 employeeModel.EmpCode = model.EmpCode;
                 employeeModel.EmpName = model.EmpName;
-                employeeModel.EmpDepartment = model.EmpDepartment;
-                employeeModel.EmpDesignation = model.EmpDesignation;
+                employeeModel.EmpDepartment = Convert.ToString(model.EmpDepartment);
+                employeeModel.EmpDesignation = Convert.ToString(model.EmpDesignation);
                 employeeModel.EmpContactNo = model.EmpContactNo;
                 employeeModel.EmpAltContactNo = model.EmpAltContactNo;
                 employeeModel.EmpPermenantAddress = model.EmpPermenantAddress;
@@ -144,68 +144,62 @@ namespace SmartOffice.BusinessLayer.Services
                 employeeModel.EmpCurShift = model.EmpCurShift;
                 return employeeModel;
             }
-
-
             finally
             { employeeModel = null; }
         }
         public List<EmployeeModel> GetAllEmployee()
         {
             List<EmployeeModel> listmodel = null;
-            EmployeeModel employeeModel = null;
             try
             {
-                var model = masemployeeRepository.GetAll();
-                if (model != null)
-                {
-                    listmodel = new List<EmployeeModel>();
-                    foreach (var value in model)
-                    {
-                        employeeModel = new EmployeeModel();
-                        employeeModel.EmpId = value.EmpId;
-                        employeeModel.Bid = (int)value.Bid;
-                        employeeModel.EmpCode = value.EmpCode;
-                        employeeModel.EmpName = value.EmpName;
-                        employeeModel.EmpDepartment = value.EmpDepartment;
-                        employeeModel.EmpDesignation = value.EmpDesignation;
-                        employeeModel.EmpContactNo = value.EmpContactNo;
-                        employeeModel.EmpAltContactNo = value.EmpAltContactNo;
-                        employeeModel.EmpEmail = value.EmpEmail;
-                        employeeModel.EmpPermenantAddress = value.EmpPermenantAddress;
-                        employeeModel.EmpTempAddress = value.EmpTempAddress;
-                        employeeModel.EmpSalaryType = value.EmpSalaryType;
-                        employeeModel.EmpBasicSalary = value.EmpBasicSalary;
-                        employeeModel.EmpLeaveAllowdMonth = value.EmpLeaveAllowdMonth;
-                        employeeModel.EmpPanno = value.EmpPanno;
-                        employeeModel.EmpUid = value.EmpUid;
-                        employeeModel.EmpBankAcNo = value.EmpBankAcNo;
-                        employeeModel.EmpBeneficiaryName = value.EmpBeneficiaryName;
-                        employeeModel.EmpBankName = value.EmpBankName;
-                        employeeModel.EmpBankBranch = value.EmpBankBranch;
-                        employeeModel.EmpIfsccode = value.EmpIfsccode;
-                        employeeModel.EmpCurShift = value.EmpCurShift;
-                        employeeModel.CreatedBy = value.CreatedBy;
-                        employeeModel.CreatedDate = value.CreatedDate;
-                        employeeModel.EmpIsactive = value.EmpIsactive;
-                        listmodel.Add(employeeModel);
-                    }
-                }
+                listmodel = new List<EmployeeModel>();
+                listmodel = (from emp in masemployeeRepository.GetAll().ToList()
+                             join config1 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept") on emp.EmpDepartment equals config1.ClId
+                             join config2 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig") on emp.EmpDesignation equals config2.ClId
+                             select new EmployeeModel
+                             {
+                                 EmpId = emp.EmpId,
+                                 Bid = (int)emp.Bid,
+                                 EmpCode = emp.EmpCode,
+                                 EmpName = emp.EmpName,
+                                 EmpDepartment = config1.ClLovname,
+                                 EmpDesignation = config2.ClLovname,
+                                 EmpContactNo = emp.EmpContactNo,
+                                 EmpAltContactNo = emp.EmpAltContactNo,
+                                 EmpEmail = emp.EmpEmail,
+                                 EmpPermenantAddress = emp.EmpPermenantAddress,
+                                 EmpTempAddress = emp.EmpTempAddress,
+                                 EmpSalaryType = emp.EmpSalaryType,
+                                 EmpBasicSalary = emp.EmpBasicSalary,
+                                 EmpLeaveAllowdMonth = emp.EmpLeaveAllowdMonth,
+                                 EmpPanno = emp.EmpPanno,
+                                 EmpUid = emp.EmpUid,
+                                 EmpBankAcNo = emp.EmpBankAcNo,
+                                 EmpBeneficiaryName = emp.EmpBeneficiaryName,
+                                 EmpBankName = emp.EmpBankName,
+                                 EmpBankBranch = emp.EmpBankBranch,
+                                 EmpIfsccode = emp.EmpIfsccode,
+                                 EmpCurShift = emp.EmpCurShift,
+                                 CreatedBy = emp.CreatedBy,
+                                 CreatedDate = emp.CreatedDate,
+                                 EmpIsactive = emp.EmpIsactive
+                             }).ToList();
                 return listmodel;
 
             }
             finally
-            { employeeModel = null; listmodel = null; }
+            { listmodel = null; }
 
         }
 
         public List<KeyValueModel> GetDeparment()
         {
-            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept").Select(exp => new KeyValueModel { keyId = exp.ClId, keyName = exp.ClLovname }).ToList();
+            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept").Select(exp => new KeyValueModel { keyId = exp.Bid, keyName = exp.ClLovname }).ToList();
         }
 
         public List<KeyValueModel> GetDesignation()
         {
-            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig").Select(exp => new KeyValueModel { keyId = exp.ClId, keyName = exp.ClLovname }).ToList();
+            return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig").Select(exp => new KeyValueModel { keyId = exp.Bid, keyName = exp.ClLovname }).ToList();
         }
     }
 

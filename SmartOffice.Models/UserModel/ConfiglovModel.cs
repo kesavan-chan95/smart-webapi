@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace SmartOffice.DataLayer.MasterDBContext
+namespace SmartOffice.Models.UserModel
 {
-    public partial class Configlov
+    public class ConfiglovModel
     {
-        public int? ClId { get; set; }
+        public int ClId { get; set; }
         public int Bid { get; set; }
         public string ClLovtype { get; set; }
         public string ClLovcode { get; set; }
@@ -15,5 +16,6 @@ namespace SmartOffice.DataLayer.MasterDBContext
         public int CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? ModifiedBy { get; set; }
+        public string cudType { get; set; }
     }
 }

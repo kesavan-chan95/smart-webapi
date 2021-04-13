@@ -100,7 +100,7 @@ namespace SmartOffice.API
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IBusinessService, BusinessService>();
             services.AddTransient<IBranchService, BranchService>();
-
+            services.AddTransient<IConfiglovService, ConfiglovService>();
         }
 
     }
