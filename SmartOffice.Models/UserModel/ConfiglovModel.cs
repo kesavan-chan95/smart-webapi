@@ -18,4 +18,7 @@ namespace SmartOffice.Models.UserModel
         public int? ModifiedBy { get; set; }
         public string cudType { get; set; }
     }
+
+   
+
 }

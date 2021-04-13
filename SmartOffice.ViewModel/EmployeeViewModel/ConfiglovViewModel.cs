@@ -9,8 +9,8 @@ namespace SmartOffice.ViewModel.EmployeeViewModel
         
         public int Bid { get; set; }
         public string ClLovtype { get; set; }
-       
-       
+
+    
         public short ClIsactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
@@ -18,4 +18,8 @@ namespace SmartOffice.ViewModel.EmployeeViewModel
         public int? ModifiedBy { get; set; }
         public string cudType { get; set; }
     }
+
+  
+
+   
 }
