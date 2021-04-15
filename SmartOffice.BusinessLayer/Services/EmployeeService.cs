@@ -14,9 +14,9 @@ namespace SmartOffice.BusinessLayer.Services
         EmployeeModel GetEmployeeById(int empId);
         List<EmployeeModel> GetAllEmployee();
 
-        List<KeyValueModel> GetDeparment();
+     //   List<KeyValueModel> GetDeparment();
 
-        List<KeyValueModel> GetDesignation();
+      //  List<KeyValueModel> GetDesignation();
 
     }
     public class EmployeeService : IEmployeeService
@@ -73,6 +73,8 @@ namespace SmartOffice.BusinessLayer.Services
                     {
                         var userData = this.masemployeeRepository.Get(exp => exp.EmpId == employeeModel.EmpId && exp.EmpIsactive == 1);
                         userData.EmpId = (long)employeeModel.EmpId;
+
+
                         userData.Bid = (int)employeeModel.Bid;
                         userData.EmpCode = employeeModel.EmpCode;
                         userData.EmpName = employeeModel.EmpName;
@@ -154,8 +156,8 @@ namespace SmartOffice.BusinessLayer.Services
             {
                 listmodel = new List<EmployeeModel>();
                 listmodel = (from emp in masemployeeRepository.GetAll().ToList()
-                             join config1 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept") on emp.EmpDepartment equals config1.ClId
-                             join config2 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig") on emp.EmpDesignation equals config2.ClId
+                             join config1 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "Department") on emp.EmpDepartment equals config1.Bid
+                             /*join config2 in configlovRepository.GetAll().Where(exp => exp.ClLovtype == "") on emp.EmpDesignation equals config2.ClId*/
                              select new EmployeeModel
                              {
                                  EmpId = emp.EmpId,
@@ -163,7 +165,7 @@ namespace SmartOffice.BusinessLayer.Services
                                  EmpCode = emp.EmpCode,
                                  EmpName = emp.EmpName,
                                  EmpDepartment = config1.ClLovname,
-                                 EmpDesignation = config2.ClLovname,
+                                 EmpDesignation = "",
                                  EmpContactNo = emp.EmpContactNo,
                                  EmpAltContactNo = emp.EmpAltContactNo,
                                  EmpEmail = emp.EmpEmail,
@@ -182,8 +184,9 @@ namespace SmartOffice.BusinessLayer.Services
                                  EmpCurShift = emp.EmpCurShift,
                                  CreatedBy = emp.CreatedBy,
                                  CreatedDate = emp.CreatedDate,
-                                 EmpIsactive = emp.EmpIsactive
-                             }).ToList();
+                                 EmpIsactive = emp.EmpIsactive,
+                                 
+            }).ToList();
                 return listmodel;
 
             }
@@ -192,7 +195,7 @@ namespace SmartOffice.BusinessLayer.Services
 
         }
 
-        public List<KeyValueModel> GetDeparment()
+     /*   public List<KeyValueModel> GetDeparment()
         {
             return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "dept").Select(exp => new KeyValueModel { keyId = exp.Bid, keyName = exp.ClLovname }).ToList();
         }
@@ -200,7 +203,7 @@ namespace SmartOffice.BusinessLayer.Services
         public List<KeyValueModel> GetDesignation()
         {
             return configlovRepository.GetAll().Where(exp => exp.ClLovtype == "desig").Select(exp => new KeyValueModel { keyId = exp.Bid, keyName = exp.ClLovname }).ToList();
-        }
+        }*/
     }
 
 }

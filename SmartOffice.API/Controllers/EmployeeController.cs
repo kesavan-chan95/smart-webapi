@@ -168,7 +168,7 @@ namespace SmartOffice.API.Controllers
             }
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [ActionName("GetDropdownData")]
         public DropdowData GetDropdownData()
         {
@@ -189,7 +189,7 @@ namespace SmartOffice.API.Controllers
             {
                 return null;
             }
-        }
+        }*/
     }
 }
 

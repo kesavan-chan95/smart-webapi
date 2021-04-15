@@ -31,7 +31,7 @@ namespace SmartOffice.ViewModel.EmployeeViewModel
 
     }
 
-    public class KeyValueViewModel
+   /* public class KeyValueViewModel
     {
         public int keyId { get; set; }
         public string keyName { get; set; }
@@ -42,7 +42,7 @@ namespace SmartOffice.ViewModel.EmployeeViewModel
         public List<KeyValueViewModel> departmentList { get; set; }
         public List<KeyValueViewModel> desingationList { get; set; }
 
-    }
+    }*/
 }
 
 
