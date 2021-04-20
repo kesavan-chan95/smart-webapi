@@ -103,6 +103,7 @@ namespace SmartOffice.API
             services.AddTransient<IConfiglovService, ConfiglovService>();
             services.AddTransient<IAttendanceServices, AttendanceService>();
             services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<IMasSlotService, MasSlotService>();
         }
     }
 
