@@ -60,12 +60,12 @@ namespace SmartOffice.API.Controllers
         }
         [HttpGet]
         [ActionName("GetUser")]
-        public AddressViewModel GetAddressById(int addId)
+        public AddressViewModel GetAddressById(int addUserId, int addUserTypeId)
         {
             AddressViewModel addressModel = null;
             try
             {
-                var model = addressService.GetAddressById(addId);
+                var model = addressService.GetAddressById(addUserId,  addUserTypeId);
                 if (model != null)
                 {
                     
@@ -93,7 +93,7 @@ namespace SmartOffice.API.Controllers
             }
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [ActionName("GetAllAddress")]
         public List<AddressViewModel> GetAllAddress()
         {
@@ -129,7 +129,7 @@ namespace SmartOffice.API.Controllers
             {
                 return null;
             }
-        }
+        }*/
 
     }
 }

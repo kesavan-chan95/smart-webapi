@@ -104,6 +104,7 @@ namespace SmartOffice.API
             services.AddTransient<IAttendanceServices, AttendanceService>();
             services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IMasSlotService, MasSlotService>();
+            services.AddTransient<ITrnSlotService, TrnSlotService>();
         }
     }
 

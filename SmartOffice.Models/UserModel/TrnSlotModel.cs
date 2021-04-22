@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace SmartOffice.DataLayer.MasterDBContext
+namespace SmartOffice.Models.UserModel
 {
-    public partial class Trnslotbooking
+  public  class TrnSlotModel
     {
         public int SbId { get; set; }
         public int Bid { get; set; }
@@ -20,6 +21,6 @@ namespace SmartOffice.DataLayer.MasterDBContext
         public int CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? ModifiedBy { get; set; }
-        
+        public string cudType { get; set; }
     }
 }

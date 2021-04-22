@@ -10,8 +10,8 @@ namespace SmartOffice.BusinessLayer.Services
     public interface IAddressService
     {
         bool AddressCreation(AddressModel addressModel, string type);
-        AddressModel GetAddressById(int addId);
-        List<AddressModel> GetAllAddress();
+        AddressModel GetAddressById(int addUserId, int addUserTypeId);
+       /* List<AddressModel> GetAllAddress();*/
 
     }
     public class AddressService : IAddressService
@@ -90,12 +90,12 @@ namespace SmartOffice.BusinessLayer.Services
             }
             finally { tempUser = null; }
         }
-        public AddressModel GetAddressById(int addId)
+        public AddressModel GetAddressById(int addUserId , int addUserTypeId )
         {
             AddressModel addressModel = null;
             try
             {
-                var model = masaddressRepository.Get(exp => exp.AddId == addId && exp.AddIsactive == 1);
+                var model = masaddressRepository.Get(exp => exp.AddUserId == addUserId && exp.AddUserTypeId == addUserTypeId && exp.AddIsactive == 1);
                 addressModel = new AddressModel();
                 addressModel.AddId = model.AddId;
                 addressModel.AddUserId = model.AddUserId;
@@ -114,7 +114,7 @@ namespace SmartOffice.BusinessLayer.Services
             finally
             { addressModel = null; }
         }
-        public List<AddressModel> GetAllAddress()
+       /* public List<AddressModel> GetAllAddress()
         {
             List<AddressModel> listModel = null;
             AddressModel addressModel = null;
@@ -147,7 +147,7 @@ namespace SmartOffice.BusinessLayer.Services
             }
             finally
             { addressModel = null; listModel = null; }
-        }
+        }*/
 
     }
 }
